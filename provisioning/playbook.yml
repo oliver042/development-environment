@@ -30,9 +30,9 @@
       timezone: Europe/London
 
     # Increase minimum password strength
-    - role: gantsign.pwquality
-      pwquality_minlen: 16
-      pwquality_maxrepeat: 3
+    # - role: gantsign.pwquality
+    #   pwquality_minlen: 16
+    #   pwquality_maxrepeat: 3
       # See https://github.com/gantsign/ansible_role_pwquality for more options
 
     # Increase the number of files that can be watched.
@@ -116,7 +116,7 @@
         - zswap
 
     # Install common command line tools
-    - gantsign.command-line-tools
+    # - gantsign.command-line-tools
 
     # Advanced alternative to cat
     - role: gantsign.bat
@@ -177,9 +177,9 @@
         - vagrant
 
     # Fix Docker for vagrant-proxyconf compatibility
-    - role: docker-proxy-fix
-      tags:
-        - docker
+    # - role: docker-proxy-fix
+    #   tags:
+    #     - docker
 
     # Install ctop
     - role: gantsign.ctop
@@ -229,7 +229,7 @@
     - role: gantsign.java
       tags:
         - java
-      java_version: '8.0.312+7'
+      java_version: '8'
       java_vendor: adoptium
       java_is_default_installation: no
       java_fact_group_name: java_8
@@ -238,7 +238,7 @@
     - role: gantsign.java
       tags:
         - java
-      java_version: '11.0.13+8'
+      java_version: '11'
       java_vendor: adoptium
 
     # Install Maven
@@ -277,9 +277,9 @@
         - vagrant
 
     # Install GNOME desktop
-    - role: gantsign.xdesktop
-      tags:
-        - gui
+    # - role: gantsign.xdesktop
+    #   tags:
+    #     - gui
 
     # Disable guest login
     - role: gantsign.lightdm
@@ -287,10 +287,10 @@
         - gui
 
     # Configure proxy settings for GNOME applications
-    - role: gantsign.gnome-proxy
-      tags:
-        - proxy
-        - gui
+    # - role: gantsign.gnome-proxy
+    #   tags:
+    #     - proxy
+    #     - gui
 
     # Install Credential Manager for Git
     - role: gantsign.git_credential_manager
@@ -700,10 +700,10 @@
         - username: vagrant
           sdkman_install:
             - candidate: maven
-              version: '3.6'
+              version: '3.8'
               path: '{{ ansible_local.maven.general.home }}'
           sdkman_default:
-            maven: '3.6'
+            maven: '3.8'
 
   post_tasks:
     # Install Postman HTTP tool

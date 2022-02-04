@@ -6,7 +6,7 @@
 # We need Vagrant >= 2.1.0 becuse we use triggers
 Vagrant.require_version '>= 2.1.0'
 
-required_plugins = %w[vagrant-reload vagrant-persistent-storage vagrant-vbguest vagrant-proxyconf nugrant]
+required_plugins = %w[vagrant-reload vagrant-persistent-storage vagrant-vbguest nugrant]
 plugins_to_install = required_plugins.reject { |plugin| Vagrant.has_plugin? plugin }
 unless plugins_to_install.empty?
   puts "Installing plugins: #{plugins_to_install.join(' ')}"
@@ -52,49 +52,7 @@ Vagrant.configure(2) do |config|
 
   # Customizable configuration
   # See https://github.com/maoueh/nugrant
-  config.user.defaults = {
-    'proxy' => {
-      'enabled' => false,
-      'http' => 'http://example.com:3128/',
-      'https' => 'http://example.com:3128/',
-      'ftp' => 'http://example.com:3128/',
-      'no_proxy' => 'localhost,127.0.0.1'
-    },
-    'apt_proxy' => {
-      'http' => nil,
-      'https' => nil,
-      'ftp' => nil
-    },
-    'git_proxy' => {
-      'http' => nil
-    },
-    'gnome_proxy' => {
-      'mode' => nil,
-      'autoconfig_url' => nil,
-      'ignore_hosts' => nil,
-      'use_same_proxy' => nil,
-      'http' => {
-        'host' => nil,
-        'port' => nil,
-        'use_authentication' => nil,
-        'authentication_user' => nil,
-        'authentication_password' => nil,
-        'enabled' => nil
-      },
-      'https' => {
-        'host' => nil,
-        'port' => nil
-      },
-      'ftp' => {
-        'host' => nil,
-        'port' => nil
-      },
-      'socks' => {
-        'host' => nil,
-        'port' => nil
-      }
-    },
-
+  config.user.defaults = {    
     'ansible' => {
       'skip_tags' => []
     },
@@ -149,6 +107,7 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing 'localhost:8080' will access port 80 on the guest machine.
   # config.vm.network 'forwarded_port', guest: 80, host: 8080
+  config.vm.network 'forwarded_port', guest: 8080, host: 8080, auto_correct: true, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -200,6 +159,8 @@ Vagrant.configure(2) do |config|
     vb.customize ['modifyvm', :id, '--clipboard', config.user.virtualbox.clipboard]
     vb.customize ['modifyvm', :id, '--draganddrop', config.user.virtualbox.draganddrop]
 
+    # vb.customize ['modifyvm', :id, '--natdnshostresolver1', "on"]
+
     unless config.user.virtualbox.audio.nil?
       # Enable sound
       vb.customize ['modifyvm', :id, '--audio', config.user.virtualbox.audio, '--audiocontroller', config.user.virtualbox.audiocontroller]
@@ -224,55 +185,6 @@ Vagrant.configure(2) do |config|
   # config.push.define 'atlas' do |push|
   #   push.app = 'YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME'
   # end
-
-  if config.user.proxy.enabled
-    config.proxy.enabled = config.user.proxy.enabled
-    config.proxy.http = config.user.proxy.http
-    config.proxy.https = config.user.proxy.https
-    config.proxy.ftp = config.user.proxy.ftp
-    config.proxy.no_proxy = config.user.proxy.no_proxy
-    config.apt_proxy.http = config.user.apt_proxy.http
-    config.apt_proxy.https = config.user.apt_proxy.https
-    config.apt_proxy.ftp = config.user.apt_proxy.ftp
-    config.git_proxy.http = config.user.git_proxy.http
-  end
-
-  gnome_proxy = {
-    'mode' => config.user.gnome_proxy.mode,
-    'autoconfig_url' => config.user.gnome_proxy.autoconfig_url,
-    'ignore_hosts' => config.user.gnome_proxy.ignore_hosts,
-    'use_same_proxy' => config.user.gnome_proxy.use_same_proxy,
-    'http_host' => config.user.gnome_proxy.http.host,
-    'http_port' => config.user.gnome_proxy.http.port,
-    'http_use_authentication' => config.user.gnome_proxy.http.use_authentication,
-    'http_authentication_user' => config.user.gnome_proxy.http.authentication_user,
-    'http_authentication_password' => config.user.gnome_proxy.http.authentication_password,
-    'http_enabled' => config.user.gnome_proxy.http.enabled,
-    'https_host' => config.user.gnome_proxy.https.host,
-    'https_port' => config.user.gnome_proxy.https.port,
-    'ftp_host' => config.user.gnome_proxy.ftp.host,
-    'ftp_port' => config.user.gnome_proxy.ftp.port,
-    'socks_host' => config.user.gnome_proxy.socks.host,
-    'socks_port' => config.user.gnome_proxy.socks.port
-  }
-  if config.user.proxy.enabled && gnome_proxy['mode'].nil?
-    gnome_proxy['mode'] = 'manual'
-    gnome_proxy['ignore_hosts'] =
-      config.proxy
-            .no_proxy
-            .split(',')
-            .map { |hostname| hostname.gsub(/^127.0.0.1$/, '127.0.0.0/8') }
-            .push('::1')
-            .uniq
-    gnome_proxy['use_same_proxy'] = false
-    gnome_proxy['http_host'] = config.user.proxy.http.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\1')
-    gnome_proxy['http_port'] = config.user.proxy.http.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\2')
-    gnome_proxy['http_enabled'] = true
-    gnome_proxy['https_host'] = config.user.proxy.https.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\1')
-    gnome_proxy['https_port'] = config.user.proxy.https.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\2')
-    gnome_proxy['ftp_host'] = config.user.proxy.ftp.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\1')
-    gnome_proxy['ftp_port'] = config.user.proxy.ftp.gsub(%r{^http://([^:]+):([0-9]+)/$}, '\2')
-  end
 
   # Use persistent APT cache
   config.vm.provision 'shell', inline: <<SCRIPT
@@ -313,24 +225,7 @@ SCRIPT
       keyboard_layout: config.user.keyboard.layout,
       keyboard_variant: config.user.keyboard.variant,
 
-      xdesktop_dock_position: config.user.dock_position,
-
-      gnome_proxy_mode: gnome_proxy['mode'],
-      gnome_proxy_autoconfig_url: gnome_proxy['autoconfig_url'],
-      gnome_proxy_ignore_hosts: gnome_proxy['ignore_hosts'],
-      gnome_proxy_use_same_proxy: gnome_proxy['use_same_proxy'],
-      gnome_proxy_http_host: gnome_proxy['http_host'],
-      gnome_proxy_http_port: gnome_proxy['http_port'],
-      gnome_proxy_http_use_authentication: gnome_proxy['http_use_authentication'],
-      gnome_proxy_http_authentication_user: gnome_proxy['http_authentication_user'],
-      gnome_proxy_http_authentication_password: gnome_proxy['http_authentication_password'],
-      gnome_proxy_http_enabled: gnome_proxy['http_enabled'],
-      gnome_proxy_https_host: gnome_proxy['https_host'],
-      gnome_proxy_https_port: gnome_proxy['https_port'],
-      gnome_proxy_ftp_host: gnome_proxy['ftp_host'],
-      gnome_proxy_ftp_port: gnome_proxy['ftp_port'],
-      gnome_proxy_socks_host: gnome_proxy['socks_host'],
-      gnome_proxy_socks_port: gnome_proxy['socks_port'],
+      xdesktop_dock_position: config.user.dock_position,      
 
       git_user_name: config.user.git_user.name,
       git_user_email: config.user.git_user.email,
@@ -347,5 +242,5 @@ SCRIPT
   config.vm.provision :reload
 
   # Force password change on first use
-  config.vm.provision 'shell', inline: 'chage --lastday 0 vagrant'
+  # config.vm.provision 'shell', inline: 'chage --lastday 0 vagrant'
 end

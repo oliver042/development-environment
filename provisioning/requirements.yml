@@ -22,8 +22,8 @@
 - src: gantsign.backup
   version: '1.0.3'
 - src: gantsign.bat
-- src: https://github.com/gantsign/ansible-role-command-line-tools/archive/2.2.0.tar.gz
-  name: gantsign.command-line-tools
+# - src: https://github.com/gantsign/ansible-role-command-line-tools/archive/2.2.0.tar.gz
+#   name: gantsign.command-line-tools
 - src: gantsign.ctop
 - src: gantsign.default-web-browser
   version: '4.0.0'
@@ -31,8 +31,8 @@
 - src: gantsign.git_credential_manager
 - src: gantsign.git_user
   version: '1.2.0'
-- src: gantsign.gnome-proxy
-  version: '1.2.1'
+# - src: gantsign.gnome-proxy
+#   version: '1.2.1'
 - src: gantsign.golang
   version: '2.9.6'
 - src: gantsign.helm
@@ -45,7 +45,7 @@
 - src: gantsign.intellij-plugins
   version: '3.1.1'
 - src: gantsign.java
-  version: '9.3.1'
+  version: '9.4.0'
 - src: gantsign.keyboard
   version: '1.5.0'
 - src: gantsign.kompose
@@ -64,8 +64,8 @@
   version: '2.0.0'
 - src: gantsign.pin-to-launcher
   version: '4.0.0'
-- src: gantsign.pwquality
-  version: '1.0.1'
+# - src: gantsign.pwquality
+#   version: '1.0.1'
 - src: gantsign.pyenv
   version: '2.0.0'
 - src: gantsign.sdkman
@@ -80,7 +80,7 @@
   version: '6.7.0'
 - src: gantsign.visual-studio-code-extensions
   version: '2.4.0'
-- src: https://github.com/gantsign/ansible-role-xdesktop/archive/6.0.0.tar.gz
-  name: gantsign.xdesktop
+# - src: https://github.com/gantsign/ansible-role-xdesktop/archive/6.0.0.tar.gz
+#   name: gantsign.xdesktop
 - src: gantsign.zswap
   version: '1.0.1'
