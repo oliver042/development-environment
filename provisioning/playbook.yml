@@ -164,11 +164,6 @@
       tags:
         - hub
 
-    # Install lazygit command line UI for git
-    - role: gantsign.lazygit
-      tags:
-        - lazygit
-
     # Install Docker
     - role: geerlingguy.docker
       tags:
@@ -218,19 +213,11 @@
       pyenv_users:
         - vagrant
 
-    # Install Pipenv
-    - role: gantsign.pipenv
-      tags:
-        - python
-      pipenv_users:
-        - vagrant
-
     # Install Java JDK 8
     - role: gantsign.java
       tags:
         - java
-      java_version: '8'
-      java_vendor: adoptium
+      java_version: '8.0.332+9'
       java_is_default_installation: no
       java_fact_group_name: java_8
 
@@ -238,8 +225,7 @@
     - role: gantsign.java
       tags:
         - java
-      java_version: '11'
-      java_vendor: adoptium
+      java_version: '11.0.15+10'
 
     # Install Maven
     - role: gantsign.maven
@@ -297,12 +283,6 @@
       tags:
         - git-credential-manager
         - gui
-
-    # Install Google Chrome web browser
-    - role: cmprescott.chrome
-      tags:
-        - gui
-        - chrome
 
     # Set the default web browser
     # This is only a partial solution as Google Chrome will still ask if you
@@ -455,7 +435,6 @@
         - username: vagrant
           intellij_plugins:
             - CheckStyle-IDEA
-            - LogSupport2
             - MavenRunHelper
             - de.platon42.cajon
 
@@ -654,8 +633,6 @@
             - name: pip
             - name: pyenv
             - name: pipenv
-              url: gantsign/zsh-plugins
-              location: pipenv
 
     - role: gantsign.antigen_bundles
       tags:
@@ -706,6 +683,21 @@
             maven: '3.8'
 
   post_tasks:
+    # Install Pipenv
+    - name: install Pipenv
+      package:
+        name: pipenv
+      tags:
+        - python
+
+    # Install Google Chrome web browser
+    - name: install Google Chrome
+      package:
+        name: google-chrome-stable
+      tags:
+        - gui
+        - chrome
+
     # Install Postman HTTP tool
     - name: install Postman
       snap:

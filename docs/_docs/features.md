@@ -5,7 +5,7 @@ description: >
   Features provided by the GantSign EnV development environment.
 numbered_headings: yes
 date: 2017-01-18T16:35:52+00:00
-modified: 2022-01-16T13:02:24+00:00
+modified: 2022-10-22T17:21:46+01:00
 ---
 
 There are a lot of well known projects, and hidden gems, which aid in your
@@ -442,16 +442,6 @@ Git commands:
 
     `git release-notes` ≡ `git log --color --pretty=format:'%s%Cred%d%Creset' --decorate | sed -E 's/(.*) \\((\\#[0-9]+)\\)/* \\2: \\1/' | tac -`
 
-### lazygit
-
-Website: [https://github.com/jesseduffield/lazygit](https://github.com/jesseduffield/lazygit)
-
-`lazygit` is a simple terminal UI for Git commands. This terminal UI gives you
-a quick view of your current repository and gives you easy access to most Git
-commands.
-
-![lazygit view]({{ '/images/lazygit.png' | relative_url }})
-
 ### Git-GUI
 
 Website: [https://git-scm.com/docs/git-gui](https://git-scm.com/docs/git-gui)
@@ -730,8 +720,6 @@ you know when the build is complete.
   for checking the code style of your Java source files.
 * [Concise AssertJ Optimizing Nitpicker](https://plugins.jetbrains.com/plugin/12195-concise-assertj-optimizing-nitpicker-cajon-)
   to help you write more concise assertions using AssertJ.
-* [LogSupport2](https://plugins.jetbrains.com/plugin/9417-log-support-2) to
-  encourage logging best practice.
 
 ### IntelliJ code style
 
@@ -741,7 +729,7 @@ support for the following JVM languages:
 * Java: based on the
   [Google Java Style Guide](http://google.github.io/styleguide/javaguide.html)
 * Kotlin: based on the
-  [Kotlin Style Guide](https://kotlinlang.org/docs/reference/coding-conventions.html)
+  [Kotlin Style Guide](https://kotlinlang.org/docs/coding-conventions.html)
 
 ### IntelliJ inspection profile
 
@@ -889,7 +877,7 @@ idea .
 ### Go SDK
 
 This development environment comes with Go language
-[SDK 1.17.6](https://golang.org/dl/#go1.17.6) installed.
+[SDK 1.18.1](https://golang.org/dl/#go1.18.1) installed.
 
 ### Go environment variables
 

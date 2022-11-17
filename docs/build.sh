@@ -20,15 +20,17 @@ run() {
     done
     for i in {1..3}; do
         htmlproofer /tmp/_site --log-level debug \
-            --url-swap "^/development-environment:" \
-            --url-ignore '//www.xfce.org,//mademistakes.com/,//github.com/gantsign/development-environment/pull/' \
+            --swap-urls "^/development-environment:" \
+            --ignore-urls '//www.xfce.org,//mademistakes.com/,//github.com/gantsign/development-environment/pull/' \
+            --ignore-status-codes 307 \
+            --enforce-https=false \
             && s=0 && break || s=$? && sleep 60
     done
     (exit $s)
 }
 
 docker_build() {
-    docker run --rm --volume=$(pwd):/srv/jekyll jekyll/jekyll:4.2.0 \
+    docker run --rm "--volume=$(pwd):/srv/jekyll" jekyll/jekyll:4.2.2 \
         /srv/jekyll/build.sh --run
 }
 
