@@ -20,6 +20,12 @@
         name: zram-config
         state: absent
 
+    - name: Install a list of packages
+      apt:
+        pkg:
+        - zip
+        - unzip
+
   roles:
     # Preserve the apt cache
     - role: gantsign.apt
@@ -698,6 +704,11 @@
               path: '{{ ansible_local.maven.general.home }}'
           sdkman_default:
             maven: '3.8'
+    
+    # Install Terraform
+    - role: diodonfrost.terraform
+      tags:
+        - terraform
 
   post_tasks:
     # Cleanup

@@ -1,0 +1,102 @@
+---
+# Nugrant https://github.com/maoueh/nugrant configuration file
+# Rename this file to: .vagrantuser
+
+# If you want some of your configuration to be inherited by multiple projects
+# you can also put configuration in the the following files:
+#
+# $SYSTEM/.vagrantuser
+# ~/.vagrantuser
+
+# Uncomment the section below to configure your proxy settings.
+# proxy:
+#   enabled: true
+#   http: 'http://example.com:3128/'
+#   https: 'http://example.com:3128/'
+#   ftp: 'http://example.com:3128/'
+#   no_proxy: 'localhost,127.0.0.1'
+
+# Uncomment the section below if you need to configure a different proxy for APT.
+# apt_proxy:
+#   http: 'http://example.com:3128/'
+#   https: 'http://example.com:3128/'
+#   ftp: 'http://example.com:3128/'
+
+# Uncomment the section below if you need to configure a different proxy for Git.
+# git_proxy:
+#   http: 'http://example.com:3128/'
+
+# Uncomment (and configure) the section below to use proxy auto configuration
+# for the GNOME desktop.
+# gnome_proxy:
+#   mode: auto
+#   autoconfig_url: 'http://example.com/proxy.pac'
+
+# For the American developers uncomment the lines below to set your timezone, locale and keyboard.
+timezone: 'Europe/Berlin' #https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+locales:
+  default: de_DE.UTF-8
+keyboard:
+  layout: de
+# Tip: place a copy of .vagrantuser in your home directory so you only have to do this once.
+
+# Uncomment the section below if you want to skip any of the tags in the playbook
+ansible:
+  skip_tags:
+#     - backup
+    - chrome
+#     - docker
+#     - git-credential-manager
+    - golang
+    - gradle
+    - gui
+#     - hub
+    - intellij
+#     - java
+#     - kubernetes
+#     - lazygit
+#     - maven
+    - maven-notifier
+    - nodejs
+#     - oh-my-zsh
+    - postman
+    - python
+#     - sdkman
+#     - swapspace
+    - vscode
+#     - zsh-autosuggestions
+#     - zsh-syntax-highlighting
+#     - zswap
+
+# Uncomment the section below to change any of the VirtualBox Settings
+virtualbox:
+  name: dev-ubuntu2004
+  gui: false
+#   cpus: 2
+#   graphicscontroller: 'vboxsvga'
+#   vram: '64'
+#   accelerate3d: 'off'
+#   memory: '4096'
+#   clipboard: bidirectional
+#   draganddrop: bidirectional
+  audio:
+  audiocontroller:
+
+# Uncomment the line below to change where the persistent virtual disk is stored
+# persistent_storage_location: '.vagrant/persistent-disk.vdi'
+
+# Uncomment the line below if you prefer a different dock positon (LEFT, RIGHT, BOTTOM)
+# dock_position: BOTTOM
+
+# Uncomment and edit the setion below to set your Git user name and email:
+# git_user:
+#   name: Example Name
+#   email: address@example.com
+#   # Uncomment the line below to overwrite your current git user name and email
+#   force: yes
+
+intellij:
+# Uncomment the line below to install IntelliJ IDEA Ultimate rather than Community
+#   edition: ultimate
+# Uncomment the line below to install your IntelliJ IDEA Ultimate license key
+#   license_key_path: '/vagrant/idea.key' # You need to copy your licence key from ~/.IntelliJIdea2017.1/config/idea.key into the project root.

@@ -78,3 +78,5 @@
 #   name: gantsign.xdesktop
 - src: gantsign.zswap
   version: '1.0.1'
+- src: diodonfrost.terraform
+  version: '1.6.1'  
